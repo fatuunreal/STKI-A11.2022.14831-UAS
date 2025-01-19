@@ -1,10 +1,11 @@
 import streamlit as st
 import pickle
 import numpy as np
+import sklearn
 
 # Load the saved model
 with open('sentiment_model.sav', 'rb') as model_file:
-    classifier_nb = pickle.load(model_file)
+    classifier_nb = pickle.load('sentiment_model.sav')
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
