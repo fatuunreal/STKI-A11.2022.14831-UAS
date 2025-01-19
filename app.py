@@ -1,7 +1,7 @@
 import streamlit as st
 import pickle
 import numpy as np
-from sklearin.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB
 
 # Load the saved model
 with open('sentiment_model.sav', 'rb') as model_file:
