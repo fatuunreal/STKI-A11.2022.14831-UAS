@@ -34,7 +34,16 @@ def predict_sentiment(text, model):
     sentiment = sentiment_map.get(prediction, 'Unknown')
 
     return sentiment, probabilities, prediction
-
+    
+# Function to plot confusion matrix
+def plot_confusion_matrix(y_true, y_pred):
+    cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Negative', 'Neutral', 'Positive'], yticklabels=['Negative', 'Neutral', 'Positive'])
+    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    st.pyplot(plt)
 
 # Function to plot ROC curve
 def plot_roc_curve(y_true, y_prob):
