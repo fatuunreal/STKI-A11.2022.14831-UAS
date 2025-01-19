@@ -35,15 +35,19 @@ def predict_sentiment(text, model):
 
     return sentiment, probabilities, prediction
 
-# Function to plot confusion matrix
-def plot_confusion_matrix(y_true, y_pred):
-    cm = confusion_matrix(y_true, y_pred)
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Negative', 'Neutral', 'Positive'], yticklabels=['Negative', 'Neutral', 'Positive'])
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    st.pyplot(plt)
+# Visualisasi distribusi probabilitas
+if st.button("Predict Sentiment"):
+    if user_input.strip() != "":
+        sentiment, probabilities, prediction = predict_sentiment(user_input, model)
+        st.subheader(f"Predicted Sentiment: {sentiment}")
+        
+        # Tampilkan grafik distribusi probabilitas
+        st.subheader("Probability Distribution")
+        prob_df = pd.DataFrame({
+            'Sentiment': ['Negative', 'Neutral', 'Positive'],
+            'Probability': probabilities
+        })
+        st.bar_chart(prob_df.set_index('Sentiment'))
 
 # Function to plot ROC curve
 def plot_roc_curve(y_true, y_prob):
