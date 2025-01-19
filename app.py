@@ -100,4 +100,3 @@ if model is not None and evaluation_data is not None:
 
 else:
     st.error("Model or evaluation data could not be loaded. Please check the files.")
-    
