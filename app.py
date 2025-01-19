@@ -1,7 +1,6 @@
 import streamlit as st
 import pickle
 import numpy as np
-from sklearn.naive_bayes import classifier_nb
 
 # Load the saved model
 with open('sentiment_model.sav', 'rb') as model_file:
