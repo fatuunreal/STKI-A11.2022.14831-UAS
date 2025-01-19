@@ -24,8 +24,8 @@ def predict_sentiment(text, model):
     return sentiment, probabilities
 
 # Streamlit UI
-st.title("Sentiment Prediction App")
-st.write("Enter a text to analyze its sentiment (Positive, Neutral, or Negative).")
+st.title("Sentiment Analysis Tweet Fufufafa Menggunakan Algoritma Naive Bayes")
+st.write("Masukkan teks untuk mengukur tingkat sentimen(Positive, Neutral, or Negative).")
 
 # Load the model
 model_path = 'sentiment_model.sav'  # Path to the saved model
@@ -33,7 +33,7 @@ model = load_model(model_path)
 
 if model is not None:
     # Input text box
-    user_input = st.text_area("Enter text:", "")
+    user_input = st.text_area("Input text:", "")
 
     # Predict button
     if st.button("Predict Sentiment"):
