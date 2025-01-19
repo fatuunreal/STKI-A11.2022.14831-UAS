@@ -31,24 +31,17 @@ def predict_sentiment(text, model):
 st.title("Sentiment Prediction App")
 st.write("Analyze the sentiment of your text (Positive, Neutral, or Negative).")
 
-# Load the model
-model_path = 'sentiment_model.sav'  # Update this path if necessary
-model = load_model(model_path)
+# Input text box
+user_input = st.text_area("Enter text:", "")
 
-if model is not None:
-    # Input text box
-    user_input = st.text_area("Enter text:", "")
-
-    # Predict button
-    if st.button("Predict Sentiment"):
-        if user_input.strip() != "":
-            sentiment, probabilities = predict_sentiment(user_input, model)
-            st.subheader(f"Predicted Sentiment: {sentiment}")
-            st.write(f"Probabilities:")
-            st.write(f"- Negative: {probabilities[0]:.2f}")
-            st.write(f"- Neutral: {probabilities[1]:.2f}")
-            st.write(f"- Positive: {probabilities[2]:.2f}")
-        else:
-            st.error("Please enter some text to analyze.")
-else:
-    st.error("Model could not be loaded. Please check the model file.")
+# Predict button
+if st.button("Predict Sentiment"):
+    if user_input.strip() != "":
+        sentiment, probabilities = predict_sentiment(user_input, classifier_nb)
+        st.subheader(f"Predicted Sentiment: {sentiment}")
+        st.write(f"Probabilities:")
+        st.write(f"- Negative: {probabilities[0]:.2f}")
+        st.write(f"- Neutral: {probabilities[1]:.2f}")
+        st.write(f"- Positive: {probabilities[2]:.2f}")
+    else:
+        st.error("Please enter some text to analyze.")
