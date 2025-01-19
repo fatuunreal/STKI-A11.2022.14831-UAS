@@ -49,7 +49,7 @@ def plot_roc_curve(y_true, y_prob):
     st.pyplot(plt)
 
 # Streamlit UI
-st.title("Sentiment Analysis of Tweets Using Naive Bayes Algorithm")
+st.title("Sentiment Analysis of Tweets Fufufafa Using Naive Bayes Algorithm")
 st.write("Enter a text to analyze its sentiment (Positive, Neutral, or Negative).")
 
 # Load the model
