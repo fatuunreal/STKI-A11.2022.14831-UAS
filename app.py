@@ -35,19 +35,6 @@ def predict_sentiment(text, model):
 
     return sentiment, probabilities, prediction
 
-# Visualisasi distribusi probabilitas
-if st.button("Predict Sentiment"):
-    if user_input.strip() != "":
-        sentiment, probabilities, prediction = predict_sentiment(user_input, model)
-        st.subheader(f"Predicted Sentiment: {sentiment}")
-        
-        # Tampilkan grafik distribusi probabilitas
-        st.subheader("Probability Distribution")
-        prob_df = pd.DataFrame({
-            'Sentiment': ['Negative', 'Neutral', 'Positive'],
-            'Probability': probabilities
-        })
-        st.bar_chart(prob_df.set_index('Sentiment'))
 
 # Function to plot ROC curve
 def plot_roc_curve(y_true, y_prob):
