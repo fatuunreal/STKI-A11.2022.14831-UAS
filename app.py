@@ -1,7 +1,6 @@
 import streamlit as st
 import pickle
 import numpy as np
-import sklearn
 
 # Load the saved model
 with open('sentiment_model.sav', 'rb') as model_file:
