@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Load the saved model
-model = pickle.load(open('sentiment_model.sav', 'rb')
+model = pickle.load(open('sentiment_model.sav', 'rb'))
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
