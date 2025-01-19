@@ -3,11 +3,11 @@ import numpy as np
 
 # Load the trained model
 try:
-    with open("naive_bayes_model.sav", "rb") as model_file:
+    with open("sentiment_model.sav", "rb") as model_file:
         classifier_nb = pickle.load(model_file)
     print("Model loaded successfully!")
 except FileNotFoundError:
-    print("Model file not found. Please ensure 'naive_bayes_model.sav' exists in the correct directory.")
+    print("Model file not found. Please ensure 'sentiment_model.sav' exists in the correct directory.")
     exit()
 except Exception as e:
     print(f"Error loading model: {e}")
