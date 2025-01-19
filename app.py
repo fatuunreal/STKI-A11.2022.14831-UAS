@@ -15,8 +15,7 @@ except Exception as e:
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
-    # Map sentiment labels
-    sentiment_map = {-1: 'Negative', 0: 'Neutral', 1: 'Positive'}
+    sentiment_map = {-1: 'Negative', 0: 'Neutral', 1: 'Positive'}  # Sesuaikan dengan dataset
 
     try:
         # Predict probabilities
@@ -30,24 +29,20 @@ def predict_sentiment(text, model):
         print(f"Error during prediction: {e}")
         return "Error", [0, 0, 0]  # Return default probabilities on error
 
-# Interactive CLI
+# Perform prediction for a static sample
 def main():
     print("\n--- Sentiment Prediction ---")
-    while True:
-        user_input = input("Enter text to analyze sentiment (or type 'exit' to quit): ")
-        if user_input.lower() == 'exit':
-            print("Exiting the program.")
-            break
+    
+    # Static text sample
+    sample_text = "Jokowi presiden terbaik di dunia"
+    print(f"Analyzing sentiment for: '{sample_text}'")
 
-        # Validate input
-        if not user_input.strip():
-            print("Please enter valid text.\n")
-            continue
+    # Predict sentiment
+    sentiment, probabilities = predict_sentiment(sample_text, classifier_nb)
 
-        # Predict sentiment
-        sentiment, probabilities = predict_sentiment(user_input, classifier_nb)
-        print(f"Predicted Sentiment: {sentiment}")
-        print(f"Probabilities: Negative={probabilities[0]:.2f}, Neutral={probabilities[1]:.2f}, Positive={probabilities[2]:.2f}\n")
+    # Output prediction result
+    print(f"Predicted Sentiment: {sentiment}")
+    print(f"Probabilities: Negative={probabilities[0]:.2f}, Neutral={probabilities[1]:.2f}, Positive={probabilities[2]:.2f}\n")
 
 if __name__ == "__main__":
     main()
