@@ -2,8 +2,13 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load the saved model
-with open('sentiment_model.sav', 'rb') as model_file:
+import os
+
+model_path = 'sentiment_model.sav'
+if not os.path.exists(model_path):
+    raise FileNotFoundError(f"Model file not found at: {model_path}")
+
+with open(model_path, 'rb') as model_file:
     classifier_nb = pickle.load(model_file)
 
 # Function to predict sentiment
