@@ -2,8 +2,18 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load the saved model
-model = pickle.load(open('sentiment_model.sav', 'rb'))
+# Function to load the model with error handling
+def load_model(model_path):
+    try:
+        with open(model_path, 'rb') as model_file:
+            model = pickle.load(model_file)
+        return model
+    except FileNotFoundError:
+        st.error(f"Model file not found at {model_path}. Please check the file path.")
+        return None
+    except Exception as e:
+        st.error(f"An error occurred while loading the model: {e}")
+        return None
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
@@ -21,17 +31,24 @@ def predict_sentiment(text, model):
 st.title("Sentiment Prediction App")
 st.write("Analyze the sentiment of your text (Positive, Neutral, or Negative).")
 
-# Input text box
-user_input = st.text_area("Enter text:", "")
+# Load the model
+model_path = 'sentiment_model.sav'  # Update this path if necessary
+model = load_model(model_path)
 
-# Predict button
-if st.button("Predict Sentiment"):
-    if user_input.strip() != "":
-        sentiment, probabilities = predict_sentiment(user_input, classifier_nb)
-        st.subheader(f"Predicted Sentiment: {sentiment}")
-        st.write(f"Probabilities:")
-        st.write(f"- Negative: {probabilities[0]:.2f}")
-        st.write(f"- Neutral: {probabilities[1]:.2f}")
-        st.write(f"- Positive: {probabilities[2]:.2f}")
-    else:
-        st.error("Please enter some text to analyze.")
+if model is not None:
+    # Input text box
+    user_input = st.text_area("Enter text:", "")
+
+    # Predict button
+    if st.button("Predict Sentiment"):
+        if user_input.strip() != "":
+            sentiment, probabilities = predict_sentiment(user_input, model)
+            st.subheader(f"Predicted Sentiment: {sentiment}")
+            st.write(f"Probabilities:")
+            st.write(f"- Negative: {probabilities[0]:.2f}")
+            st.write(f"- Neutral: {probabilities[1]:.2f}")
+            st.write(f"- Positive: {probabilities[2]:.2f}")
+        else:
+            st.error("Please enter some text to analyze.")
+else:
+    st.error("Model could not be loaded. Please check the model file.")
