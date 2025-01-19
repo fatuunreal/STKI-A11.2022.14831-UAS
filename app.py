@@ -8,8 +8,9 @@ model_path = 'sentiment_model.sav'
 if not os.path.exists(model_path):
     raise FileNotFoundError(f"Model file not found at: {model_path}")
 
-with open(model_path, 'rb') as model_file:
-    classifier_nb = pickle.load(model_file)
+with open('sentiment_model.sav', 'wb') as model_file:
+    pickle.dump(classifier_nb, model_file)
+
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
