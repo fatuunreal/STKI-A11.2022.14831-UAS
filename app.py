@@ -14,6 +14,15 @@ def load_model(model_path):
         st.error(f"Error loading the model: {e}")
         return None
 
+# Function to load evaluation data
+def load_evaluation_data(data_path):
+    try:
+        data = joblib.load(data_path)
+        return data
+    except Exception as e:
+        st.error(f"Error loading evaluation data: {e}")
+        return None
+
 # Function to predict sentiment
 def predict_sentiment(text, model):
     sentiment_map = {-1: 'Negative', 0: 'Neutral', 1: 'Positive'}
@@ -57,7 +66,11 @@ st.write("Enter a text to analyze its sentiment (Positive, Neutral, or Negative)
 model_path = 'sentiment_model.sav'  # Path to the saved model
 model = load_model(model_path)
 
-if model is not None:
+# Load evaluation data
+evaluation_data_path = 'evaluation_data.sav'  # Path to the saved evaluation data
+evaluation_data = load_evaluation_data(evaluation_data_path)
+
+if model is not None and evaluation_data is not None:
     # Input text box
     user_input = st.text_area("Enter text:", "")
 
@@ -77,13 +90,10 @@ if model is not None:
     st.subheader("Model Evaluation Metrics")
     st.write("Below are the evaluation metrics for the trained model:")
 
-    # Example true labels and predictions (replace with your actual data)
-    y_true = [-1, 0, 1, 1, 0, -1, 1, 0, -1, 1]  # Example true labels
-    y_pred = [-1, 0, 1, 0, 0, -1, 1, 1, -1, 1]  # Example predictions
-    y_prob = np.array([[0.8, 0.1, 0.1], [0.1, 0.7, 0.2], [0.1, 0.2, 0.7], 
-                       [0.3, 0.4, 0.3], [0.1, 0.8, 0.1], [0.9, 0.05, 0.05], 
-                       [0.1, 0.1, 0.8], [0.2, 0.6, 0.2], [0.85, 0.1, 0.05], 
-                       [0.05, 0.05, 0.9]])  # Example probabilities
+    # Extract evaluation data
+    y_true = evaluation_data['y_true']
+    y_pred = evaluation_data['y_pred']
+    y_prob = evaluation_data['y_prob']
 
     # Calculate metrics
     accuracy = accuracy_score(y_true, y_pred)
@@ -107,4 +117,4 @@ if model is not None:
     plot_roc_curve(y_true, y_prob)
 
 else:
-    st.error("Model could not be loaded. Please check the model file.")
+    st.error("Model or evaluation data could not be loaded. Please check the files.")
