@@ -4,7 +4,7 @@ import numpy as np
 
 # Load the saved model
 with open('sentiment_model.sav', 'rb') as model_file:
-    classifier_nb = pickle.load('sentiment_model.sav')
+    classifier_nb = pickle.load(modul)
 
 # Function to predict sentiment
 def predict_sentiment(text, model):
