@@ -100,7 +100,7 @@ if model is not None and evaluation_data is not None:
             st.pyplot(fig)
 
             # Display static accuracy metrics
-            st.subheader("Model Evaluation Metrics (Static)")
+            st.subheader("Model Evaluation Metrics")
             st.write(f"- **Accuracy Test set:** {accuracy:.4f}")
             st.write(f"- **Recall Test set:** {recall:.4f}")
             st.write(f"- **Precision Test set:** {precision:.4f}")
