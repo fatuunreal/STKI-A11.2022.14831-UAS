@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score, f1_score
 
 # Function to load the model
 def load_model(model_path):
@@ -47,6 +47,14 @@ def plot_roc_curve(y_true, y_prob):
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend(loc="lower right")
     st.pyplot(plt)
+
+# Function to calculate evaluation metrics
+def calculate_metrics(y_true, y_pred):
+    accuracy = accuracy_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred, average='weighted')
+    precision = precision_score(y_true, y_pred, average='weighted')
+    f1 = f1_score(y_true, y_pred, average='weighted')
+    return accuracy, recall, precision, f1
 
 # Streamlit UI
 st.write("FATU RAHMAT A11.2022.14831 STKI-4701")
@@ -93,6 +101,15 @@ if model is not None and evaluation_data is not None:
             ax.set_title('Sentiment Probability Distribution')
             st.pyplot(fig)
 
+            # Calculate and display evaluation metrics
+            st.subheader("Model Evaluation Metrics")
+            y_true = evaluation_data['y_true']
+            y_pred = evaluation_data['y_pred']
+            accuracy, recall, precision, f1 = calculate_metrics(y_true, y_pred)
+            st.write(f"- **Accuracy Test set:** {accuracy:.4f}")
+            st.write(f"- **Recall Test set:** {recall:.4f}")
+            st.write(f"- **Precision Test set:** {precision:.4f}")
+            st.write(f"- **F1 Test set:** {f1:.4f}")
     
     # Display ROC Curve from evaluation data
     st.subheader("ROC Curve (Evaluation Data)")
