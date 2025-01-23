@@ -93,18 +93,6 @@ if model is not None and evaluation_data is not None:
             ax.set_title('Sentiment Probability Distribution')
             st.pyplot(fig)
 
-     
-        # Menampilkan hasil prediksi
-        st.success(evaluation_data)
-        
-        # Menampilkan metrik model
-        st.title("Evaluasi Model KNN untuk Prediksi Diabetes")
-        st.subheader("Metrik Evaluasi")
-        st.metric(label="Akurasi", value="92.68%")
-        st.metric(label="Presisi", value="94.75%")
-        st.metric(label="Recall (Sensitivitas)", value="93.53%")
-        st.metric(label="ROC AUC", value="98.33%")
-
     
     # Display ROC Curve from evaluation data
     st.subheader("ROC Curve (Evaluation Data)")
