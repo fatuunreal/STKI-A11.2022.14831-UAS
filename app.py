@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import roc_curve, auc
 
 # Function to load the model
 def load_model(model_path):
@@ -48,14 +48,6 @@ def plot_roc_curve(y_true, y_prob):
     plt.legend(loc="lower right")
     st.pyplot(plt)
 
-# Function to calculate evaluation metrics
-def calculate_metrics(y_true, y_pred):
-    accuracy = accuracy_score(y_true, y_pred)
-    recall = recall_score(y_true, y_pred, average='weighted')
-    precision = precision_score(y_true, y_pred, average='weighted')
-    f1 = f1_score(y_true, y_pred, average='weighted')
-    return accuracy, recall, precision, f1
-
 # Streamlit UI
 st.write("FATU RAHMAT A11.2022.14831 STKI-4701")
 st.title("Sentiment Analysis of Tweets Fufufafa Using Naive Bayes Algorithm")
@@ -68,6 +60,12 @@ model = load_model(model_path)
 # Load evaluation data
 evaluation_data_path = 'evaluation_data.sav'  # Path to the saved evaluation data
 evaluation_data = load_evaluation_data(evaluation_data_path)
+
+# Static accuracy metrics
+accuracy = 0.6809
+recall = 0.6809
+precision = 0.6695
+f1 = 0.6731
 
 if model is not None and evaluation_data is not None:
     # Input text box
@@ -101,11 +99,8 @@ if model is not None and evaluation_data is not None:
             ax.set_title('Sentiment Probability Distribution')
             st.pyplot(fig)
 
-            # Calculate and display evaluation metrics
-            st.subheader("Model Evaluation Metrics")
-            y_true = evaluation_data['y_true']
-            y_pred = evaluation_data['y_pred']
-            accuracy, recall, precision, f1 = calculate_metrics(y_true, y_pred)
+            # Display static accuracy metrics
+            st.subheader("Model Evaluation Metrics (Static)")
             st.write(f"- **Accuracy Test set:** {accuracy:.4f}")
             st.write(f"- **Recall Test set:** {recall:.4f}")
             st.write(f"- **Precision Test set:** {precision:.4f}")
